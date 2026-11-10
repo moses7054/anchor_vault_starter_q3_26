@@ -9,7 +9,7 @@ use anchor_lang::{
 };
 
 #[derive(Accounts)]
-pub struct Withdraw<'info> {
+pub struct LegacyWithdraw<'info> {
     #[account(mut)]
     pub user: Signer<'info>,
 
@@ -28,7 +28,7 @@ pub struct Withdraw<'info> {
     pub system_program: Program<'info, System>,
 }
 
-impl<'info> Withdraw<'info> {
+impl<'info> LegacyWithdraw<'info> {
     pub fn withdraw(&mut self, amount: u64) -> Result<()> {
         require!(amount > 0, ErrorCode::InvalidAmount);
 
@@ -40,17 +40,17 @@ impl<'info> Withdraw<'info> {
         let rent_minimum = Rent::get()?.minimum_balance(self.vault.data_len());
         require!(remaining >= rent_minimum, ErrorCode::InsufficientFunds);
 
-        let bump = [self.vault_state.vault_bump];
         let user_key = self.user.key();
+        let bump = [self.vault_state.vault_bump];
         let seeds = &[VAULT_SEED, user_key.as_ref(), &bump[..]];
         let signer_seeds = &[&seeds[..]];
         let cpi_accounts = Transfer {
             from: self.vault.to_account_info(),
             to: self.user.to_account_info(),
         };
-        let cpi_ctx =
-            CpiContext::new_with_signer(self.system_program.key(), cpi_accounts, signer_seeds);
-
-        transfer(cpi_ctx, amount)
+        transfer(
+            CpiContext::new_with_signer(self.system_program.key(), cpi_accounts, signer_seeds),
+            amount,
+        )
     }
 }

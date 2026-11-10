@@ -8,7 +8,7 @@ use anchor_lang::{
 };
 
 #[derive(Accounts)]
-pub struct Close<'info> {
+pub struct LegacyClose<'info> {
     #[account(mut)]
     pub user: Signer<'info>,
 
@@ -29,22 +29,22 @@ pub struct Close<'info> {
     pub system_program: Program<'info, System>,
 }
 
-impl<'info> Close<'info> {
+impl<'info> LegacyClose<'info> {
     pub fn close(&mut self) -> Result<()> {
         let amount = self.vault.lamports();
         if amount > 0 {
-            let bump = [self.vault_state.vault_bump];
             let user_key = self.user.key();
+            let bump = [self.vault_state.vault_bump];
             let seeds = &[VAULT_SEED, user_key.as_ref(), &bump[..]];
             let signer_seeds = &[&seeds[..]];
             let cpi_accounts = Transfer {
                 from: self.vault.to_account_info(),
                 to: self.user.to_account_info(),
             };
-            let cpi_ctx =
-                CpiContext::new_with_signer(self.system_program.key(), cpi_accounts, signer_seeds);
-
-            transfer(cpi_ctx, amount)?;
+            transfer(
+                CpiContext::new_with_signer(self.system_program.key(), cpi_accounts, signer_seeds),
+                amount,
+            )?;
         }
 
         Ok(())

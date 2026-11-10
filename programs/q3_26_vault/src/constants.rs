@@ -6,8 +6,8 @@ pub const VAULT_SEED: &[u8] = b"vault";
 #[constant]
 pub const STATE: &[u8] = b"state";
 
-// #[constant]
-// pub const HELLO_WORLD_LAMPORTS: u64 = 1;
+#[constant]
+pub const SHARE_MINT_SEED: &[u8] = b"share_mint";
 
-// #[constant]
-// pub const MAX_COUNT: u64 = 10;
+#[constant]
+pub const RECEIPT_VAULT_STATE: &[u8] = b"vault_state";
