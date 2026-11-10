@@ -116,6 +116,12 @@ itself can be immediately sold or redeemed for SOL.
 
 ## Test evidence
 
+Withdraw and Close Instructions Challenge tests pass:
+
+![Withdraw and Close Instructions Challenge test results](./screenshots/withdraw-and-close-instructions-tests.png)
+
+
+
 Advanced Extension Challenge tests pass:
 
 ![Advanced Extension Challenge test results](./screenshots/advanced-vault-extension-challenge-tests.png)
