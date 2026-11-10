@@ -112,3 +112,10 @@ on the included tests. Obtain an independent security review and verify the
 receipt mint's issuer, transfer behavior, market backing, and redemption
 conditions. In-kind vault redemption cannot guarantee that the receipt token
 itself can be immediately sold or redeemed for SOL.
+
+
+## Test evidence
+
+Advanced Extension Challenge tests pass:
+
+![Advanced Extension Challenge test results](./screenshots/advanced-vault-extension-challenge-tests.png)
