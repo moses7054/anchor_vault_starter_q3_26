@@ -9,7 +9,7 @@ pub use constants::*;
 pub use instructions::*;
 pub use state::*;
 
-declare_id!("aNksHVU3gU1mjCPtTBsVk9S7qokAUvXfotB2jBxQQvv");
+declare_id!("j3KP5GpVysf2ZyzvjwzujNHib7o9TY3KuF4oDiPPHRg");
 
 #[program]
 pub mod q3_26_vault {
@@ -23,11 +23,11 @@ pub mod q3_26_vault {
         ctx.accounts.deposit(amount)
     }
 
-    // pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
-    //     ctx.accounts.withdraw(amount)
-    // }
+    pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
+        ctx.accounts.withdraw(amount)
+    }
 
-    // pub fn close(ctx: Context<Close>) -> Result<()> {
-    //     ctx.accounts.close()
-    // }
+    pub fn close(ctx: Context<Close>) -> Result<()> {
+        ctx.accounts.close()
+    }
 }
